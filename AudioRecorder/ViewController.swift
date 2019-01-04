@@ -29,6 +29,13 @@ class ViewController: UIViewController,AVAudioRecorderDelegate,AVAudioPlayerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for button in controls
+        {
+            button.layer.cornerRadius = 35
+            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderWidth = 5
+            button.clipsToBounds = true
+        }
         titleLabel.text = UserDefaults.standard.object(forKey: "title") as? String ?? "No Recordings"
         
         progressView.progress = 0
@@ -38,6 +45,8 @@ class ViewController: UIViewController,AVAudioRecorderDelegate,AVAudioPlayerDele
         let audioSession = AVAudioSession.sharedInstance()
         
         try? audioSession.setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+        
+        try? audioSession.overrideOutputAudioPort(.speaker)
 
     }
 
